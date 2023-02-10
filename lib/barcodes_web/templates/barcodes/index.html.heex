@@ -1,0 +1,253 @@
+  <section class="section dashboard">
+
+    <div class="pagetitle">
+        <h1>Barcodes</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Barcodes</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+    <div class="row">
+
+    <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Barcodes Lists</h5>
+
+     <!-- add barcodes form -->
+
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#largeModal" style = "width: 100px">
+        Add Barcodes
+      </button>
+
+      <div class="modal fade" id="largeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Generate Barcodes</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <ul class="nav nav-tabs nav-tabs-bordered d-flex" id="borderedTabJustified" role="tablist">
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-home" type="button" role="tab" aria-controls="home" aria-selected="false">Online Form</button>
+                </li>
+                
+                <li class="nav-item flex-fill" role="presentation">
+                  <button class="nav-link w-100" id="profile-tab" data-bs-toggle="tab" data-bs-target="#bordered-justified-profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Template Format</button>
+                </li>
+              </ul>
+
+              <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                <div class="tab-pane fade show active" id="bordered-justified-home" role="tabpanel" aria-labelledby="home-tab">
+                  <.form let={f} for={@changeset} action={Routes.barcodes_path(@conn, :create)} class="row g-3 needs-validation">
+
+                     <div class="containers" >
+                      <div class='element' id='div_1'>
+
+                    <div class="row">   
+                      <h4 style="font-weight: bold;">Enter Details Of Products To be Barcoded</h4>
+                    <div class="col-6">
+                      <label for="yourUsername" class="form-label">Client Name</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-speedometer2"></i></span>
+                        <%= select f, :user_id, @list_of_users,required: true, class: "form-control", placeholder: "Enter Product Weight" %>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+                   
+                    <div class="col-6">
+                      <label for="yourUsername" class="form-label">Product Name</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-upc-scan"></i></span>
+                        <input name = "product_name[]" placeholder="Enter Product Name" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-6">
+                      <label for="yourUsername" class="form-label">Product Weight</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-speedometer2"></i></span>
+                        <input name = "weight[]" placeholder="Enter Product weight" class="form-control" type = "number" required>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <label for="yourUsername" class="form-label">Product UOM</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-newspaper"></i></span>
+                        <input name = "uom[]" placeholder="Enter Product uom" class="form-control" required>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Product Description</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-pencil-square"></i></span>
+                        <textarea name = "product_description[]" placeholder="Enter Product Description" type="textarea" class="form-control" required></textarea>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+
+                    </div>
+                    </div>
+
+                    <div class='col-md-2'>
+                      <button id="add_proforma">Add More Product Details</button>
+                     </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-outline-primary w-100" type="submit">Generate Barcode</button>
+                    </div>
+                    
+                  </.form>
+                </div>
+
+
+                <div class="tab-pane fade" id="bordered-justified-profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <form class="row g-3">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" placeholder="Enter Company Prefix">
+                    </div>
+
+                    <div class="col-sm-6">
+                      <input class="form-control" type="file" id="formFile">
+                    </div>
+
+                    <div class="col-md-6">
+                      <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Code</th>
+            <th scope="col">Brand Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Net Content</th>
+            <th scope="col">Image</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= for b <- @barcodes do %>
+          <tr>
+            <td><%= b.barcode %></td>
+            <td><%= b.product_name %></td>
+            <td><%= b.product_description %></td>
+            <td><%= b.weight %> <%= b.uom %></td>
+            <td>"N/A"</td>
+            <td>
+              <i class="bi bi-pencil-square" data-bs-toggle="modal" data-bs-target={"#largeModal#{b.id}"} style = "color: rgb(60, 244, 238)"></i>
+
+              <i class="bi bi-zoom-in" data-bs-toggle="modal" data-bs-target={"#viewModal#{b.id}"} style = "color: rgb(16 235 105); margin-left: 10px; margin-right: 10px; "></i>
+
+              <%= link "",to: Routes.barcodes_path(@conn, :delete, b),method: :delete,data: [confirm: "are you sure you want to delete this code?"], class: "bi bi-trash-fill", style: "color: rgb(243, 17, 17);"%>
+            </td>
+
+            <!-- edit barcode modal -->
+            <div class="modal fade" id={"largeModal#{b.id}"} tabindex="-1">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Edit Barcode Details</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <.form let={f} for={@changeset} action={Routes.barcodes_path(@conn, :edit_barcodes)} class="row g-3 needs-validation">
+ 
+                     <div class="row">   
+                       <h4 style="font-weight: bold;">Enter Details Of Products To be Barcoded</h4>
+                     <div class="col-12">
+                       <label for="yourUsername" class="form-label">Product Name</label>
+                       <div class="input-group has-validation">
+                         <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-upc-scan"></i></span>
+                         <%= hidden_input f, :id, value: b.id %>
+                         <%= text_input f, :product_name, value: b.product_name, placeholder: "Enter Product Name", class: "form-control" %>
+                         <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                       </div>
+                     </div>
+
+                     <div class="col-6">
+                      <label for="yourUsername" class="form-label">Product Weight</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-speedometer2"></i></span>
+                        <%= number_input f, :weight, value: b.weight, placeholder: "Enter Product weight", class: "form-control" %>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <label for="yourUsername" class="form-label">Product UOM</label>
+                      <div class="input-group has-validation">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-newspaper"></i></span>
+                        <%= text_input f, :uom, value: b.uom, placeholder: "Enter Product UOM", class: "form-control" %>
+                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                      </div>
+                    </div>
+                     </div>
+ 
+                     <div class="col-12">
+                       <label for="yourUsername" class="form-label">Product Description</label>
+                       <div class="input-group has-validation">
+                         <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-pencil-square"></i></span>
+                         <%= textarea f, :product_description, value: b.product_description, placeholder: "Enter Product Description", class: "form-control" %>
+                         <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                       </div>
+                     </div>
+ 
+                     <div class="col-12">
+                       <button class="btn btn-outline-primary w-100" type="submit">Submit</button>
+                     </div>
+                     
+                   </.form>
+                  </div>
+                   </div>
+              </div>
+              </div> 
+
+
+              <!-- view barcode modal -->
+            <div class="modal fade" id={"viewModal#{b.id}"} tabindex="-1">
+              <div class="modal-dialog modal-lg">
+                <div class="card mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="assets/img/product.png" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title"><%= b.product_name %> (<%= b.barcode %>)</h5>
+                        <p class="card-text"><%= b.weight %> (<%= b.uom %>)</p>
+                        <p class="card-text"><%= b.product_description %></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+
+    </div>
+  </div>
+
+    </div>
+  </section>

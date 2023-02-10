@@ -1,0 +1,118 @@
+<section class="section dashboard">
+
+    <div class="pagetitle">
+        <h1>Staff</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Users</li>
+            <li class="breadcrumb-item active">Staff</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
+    <div class="row">
+
+    <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Staff List</h5>
+
+     <!-- add barcodes form -->
+
+      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#largeModal" style = "width: 100px">
+        Add Staff
+      </button>
+
+      <div class="modal fade" id="largeModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Add Staff</h4>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <.form let={f} for={@changeset} action={Routes.users_path(@conn, :create_staff)}>
+                <div class="col-12">
+                  <label for="yourName" class="form-label">First Name</label>
+                  <%= text_input f, :first_name, required: true, class: "form-control", placeholder: "First Name" %>
+                  <%= hidden_input f, :user_type, value: "staff" %>
+                   <%= error_tag f, :first_name %>
+
+                </div>
+
+                <div class="col-12">
+                  <label for="yourName" class="form-label">Last Name</label>
+                  <%= text_input f, :last_name, required: true, class: "form-control", placeholder: "Last Name" %>
+                   <%= error_tag f, :last_name %>
+                </div>
+
+                <div class="col-12">
+                  <label for="yourUsername" class="form-label">Email</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@</span>
+                    <%= email_input f, :email, required: true, class: "form-control", placeholder: "Email" %>
+                    <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                  </div>
+                </div>
+
+                 <div class="col-12">
+                  <label for="yourUsername" class="form-label">Phone</label>
+                  <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend"><i class="bi bi-telephone"></i></span>
+                    <%= text_input f, :phone, required: true, class: "form-control", placeholder: "Phone" %>
+                    <%= hidden_input f, :hashed_password, value: "Pass1234" %>
+                    <%= hidden_input f, :password , value: "Pass1234" %>
+                    <%= error_tag f, :phone %>
+                  </div>
+                </div>
+                
+                <div class="col-12">
+                  <button class="btn btn-outline-primary w-100" type="submit">Submit</button>
+                </div>
+              </.form>
+            </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Table with hoverable rows -->
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for c <- @staff do %>
+          <tr>
+            <td scope="col">#</td>
+            <td scope="col"><%= c.first_name %></td>
+            <td scope="col"><%= c.last_name %></td>
+            <td scope="col"><%= c.phone %></td>
+            <td scope="col"><%= c.email %></td>
+            <td scope="col">
+                <%= if c.status == "active" do %>
+                    <i class="bi bi-check2-square" style = "color: rgb(103, 244, 103)"></i>
+                <% else %>
+                    <i class="bi bi-x-square" style = "color: rgb(255, 0, 0)"></i>
+                <% end %>
+            </td>
+            <td>
+                <i class="bi bi-pencil-square" style = "color: rgb(60, 244, 238)"></i>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- End Table with hoverable rows -->
+
+    </div>
+  </div>
+
+    </div>
+  </section>
